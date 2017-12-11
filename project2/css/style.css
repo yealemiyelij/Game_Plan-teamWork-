@@ -1,0 +1,43 @@
+/***** ALL PAGES ******/
+
+body {
+    background-image: url(../images/background.jpg);
+    font-family: 'Dosis', sans-serif;
+}
+
+
+/****Login Page****/
+
+.login {
+    opacity: .9;
+    background-image: url(../images/background.jpg) !important;
+}
+
+
+/****New User*****/
+
+#newUserPage {
+    background-color: #ddcece;
+}
+
+#center {
+    float: none;
+    margin: 0 auto;
+}
+
+#newUserForm {
+    opacity: .75;
+}
+
+
+/*****Main Page*****/
+
+#mainPage {
+    background-color: #ddcece;
+}
+
+.yourStuff {
+    float: none;
+    margin: 0 auto;
+    opacity: .85;
+}
