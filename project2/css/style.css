@@ -4,6 +4,10 @@
         background-image: url(../images/background.jpg);
         font-family: 'Dosis', sans-serif !important;
     }
+
+    .navbar {
+        z-index: 3;
+    }
     /****Login Page****/
 
     .login {
@@ -13,7 +17,7 @@
         position: absolute;
         top: 25%;
         left: 0;
-        z-index: 10;
+        z-index: 2;
     }
 
     #overlay {
@@ -57,4 +61,5 @@
     .group {
         border: solid 2px #799dd3;
         background-color: #21263b;
+        border-radius: 25px !important;
     }
