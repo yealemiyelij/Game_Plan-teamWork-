@@ -15,6 +15,70 @@
 
 <body id="mainPage">
     <div class="container-fluid">
+        <!-- Modal New Event -->
+        <div class="modal fade" id="newEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Event</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="m-2">
+                            <div class="form-group">
+                                <label>Event Name</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <label>Event Date</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <label>Event Group</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="createEvent">Create Event</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Modal New Group-->
+        <div class="modal fade" id="newGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Group</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="m-2">
+                            <div class="form-group">
+                                <label>Group Name</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <label>Group Type</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                            <div class="form-group">
+                                <label>Add Friends</label>
+                                <input type="text" class="form-control form-control-sm">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" id="createEvent">Create Group</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 px-4">
                 <a class="navbar-brand" href="#">Game Plan</a>
@@ -48,63 +112,109 @@
         <div class="container">
             <div class="row">
                 <div class="col-10 yourStuff">
-                    <div class="card m-4">
-                        <div class="card-header text-center">
-                            <h4> Your Groups </h4>
+                    <div class="card m-2 p-1 bg-secondary yourCard">
+                        <div class="card-header text-center text-dark font-weight-bold">
+                            <h3>Your Events</h3>
                         </div>
-                        <div class="card-body">
-                            <table class="table border-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Group Name</th>
-                                        <th scope="col">Group Type</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Group 1</th>
-                                        <td>Friends</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Group 2</th>
-                                        <td>Work Friends</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="btn btn-primary btn-lg">New Group</a>
+                        <div class="card-body text-white">
+                            <ul>
+                                <div class="row rounded p-1 m-3 group">
+                                    <div class="col-3 groupName">
+                                        <h4>Event 1 Test</h4>
+                                    </div>
+                                    <div class="col-3 groupType">
+                                        <h6>Friends Group</h6>
+                                    </div>
+                                    <div class="col-4">
+                                        <h6>12/19/2017</h6>
+                                    </div>
+                                    <div class="col-3 delete">
+                                        <a></a>
+                                    </div>
+                                </div>
+                                <div class="row rounded p-1 m-3 group">
+                                    <div class="col-3 groupName">
+                                        <h4>Event 2 Test</h4>
+                                    </div>
+                                    <div class="col-3 groupType">
+                                        <h6>Work Group</h6>
+                                    </div>
+                                    <div class="col-3">
+                                        <h6>12/29/2017</h6>
+                                    </div>
+                                    <div class="col-3 delete">
+                                        <a></a>
+                                    </div>
+                                </div>
+                                <div class="row rounded p-1 m-3 group">
+                                    <div class="col-3 groupName">
+                                        <h4>Event 3 Test</h4>
+                                    </div>
+                                    <div class="col-3 groupType">
+                                        <h6>School Group</h6>
+                                    </div>
+                                    <div class="col-3">
+                                        <h6>12/21/2017</h6>
+                                    </div>
+                                    <div class="col-3 delete">
+                                        <a></a>
+                                    </div>
+                                </div>
+                            </ul>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newEvent">
+                                New Event
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-10 yourStuff">
-                    <div class="card m-4">
-                        <div class="card-header text-center">
-                            <h4>Your Events</h4>
+                    <div class="card m-2 p-1 bg-secondary yourCard">
+                        <div class="card-header text-center text-dark font-weight-bold">
+                            <h3> Your Groups </h3>
                         </div>
                         <div class="card-body">
-                            <table class="table border-0">
-                                <thead>
-                                    <tr>
-                                        <th scope="col">Event Name</th>
-                                        <th scope="col">Group</th>
-                                        <th scope="col">Date</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <th scope="row">Outing 1</th>
-                                        <td>Group 1</td>
-                                        <td>12/15/17</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row">Outing 2</th>
-                                        <td>Group 2</td>
-                                        <td>12/18/17</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <a href="#" class="btn btn-primary btn-lg">New Event</a>
+                            <ul>
+                                <div class="row rounded p-1 m-3 group">
+                                    <div class="col-4 groupName">
+                                        <h4>Group1 Test</h4>
+                                    </div>
+                                    <div class="col-4 groupType">
+                                        <h6>Friends Group</h6>
+                                    </div>
+                                    <div class="col-4 delete">
+                                        <a></a>
+                                    </div>
+                                </div>
+                                <div class="row rounded p-1 m-3 group">
+                                    <div class="col-4 groupName">
+                                        <h4>Group2 Test</h4>
+                                    </div>
+                                    <div class="col-4 groupType">
+                                        <h6>School Group</h6>
+                                    </div>
+                                    <div class="col-4 delete">
+                                        <a></a>
+                                    </div>
+                                </div>
+                                <div class="row rounded p-1 m-3 group">
+                                    <div class="col-4 groupName">
+                                        <h4>Group3 Test</h4>
+                                    </div>
+                                    <div class="col-4 groupType">
+                                        <h6>Works Group</h6>
+                                    </div>
+                                    <div class="col-4 delete">
+                                        <a></a>
+                                    </div>
+                                </div>
+                            </ul>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#newGroup">
+                                New Group
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -118,6 +228,14 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <script src="javascript/pageSpecific.js"></script>
 </body>
 
 </html>

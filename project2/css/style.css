@@ -1,43 +1,60 @@
-/***** ALL PAGES ******/
+    /***** ALL PAGES ******/
 
-body {
-    background-image: url(../images/background.jpg);
-    font-family: 'Dosis', sans-serif;
-}
+    body {
+        background-image: url(../images/background.jpg);
+        font-family: 'Dosis', sans-serif !important;
+    }
+    /****Login Page****/
 
+    .login {
+        opacity: .9;
+        background-image: url(../images/background.jpg) !important;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 25%;
+        left: 0;
+        z-index: 10;
+    }
 
-/****Login Page****/
+    #overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+    /****New User*****/
 
-.login {
-    opacity: .9;
-    background-image: url(../images/background.jpg) !important;
-}
+    #newUserPage {
+        background-color: #ddcece;
+    }
 
+    #center {
+        float: none;
+        margin: 0 auto;
+    }
 
-/****New User*****/
+    #newUserForm {
+        opacity: .75;
+    }
+    /*****Main Page*****/
 
-#newUserPage {
-    background-color: #ddcece;
-}
+    #mainPage {}
 
-#center {
-    float: none;
-    margin: 0 auto;
-}
+    .yourStuff {
+        float: none;
+        margin: 0 auto;
+        opacity: .85;
+        color: #ffffff;
+    }
 
-#newUserForm {
-    opacity: .75;
-}
+    .yourCard {
+        background-image: url(../images/cardBackground.jpg) !important;
+    }
 
-
-/*****Main Page*****/
-
-#mainPage {
-    background-color: #ddcece;
-}
-
-.yourStuff {
-    float: none;
-    margin: 0 auto;
-    opacity: .85;
-}
+    .group {
+        border: solid 2px #799dd3;
+        background-color: #21263b;
+    }
