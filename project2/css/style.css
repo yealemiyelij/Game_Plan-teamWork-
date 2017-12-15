@@ -2,18 +2,26 @@
 
     body {
         background-image: url(../images/background.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
         font-family: 'Dosis', sans-serif !important;
     }
 
     .navbar {
         z-index: 3;
     }
+
+    .footer {
+        background-color: #3f3f3f;
+        bottom: 0;
+    }
     /****Login Page****/
 
     .login {
         opacity: .9;
-        background-image: url(../images/background.jpg) !important;
+        background-image: url(../images/login.png) !important;
         background-repeat: no-repeat;
+        background-size: cover;
         position: absolute;
         top: 25%;
         left: 0;
@@ -41,25 +49,36 @@
     }
 
     #newUserForm {
-        opacity: .75;
+        opacity: .95;
     }
     /*****Main Page*****/
-
-    #mainPage {}
 
     .yourStuff {
         float: none;
         margin: 0 auto;
-        opacity: .85;
-        color: #ffffff;
+        opacity: .95;
+        /* background: #a3a598 !important; */
     }
 
-    .yourCard {
-        background-image: url(../images/cardBackground.jpg) !important;
+    .user {
+        background: #a3a598 !important;
+    }
+
+    .playTeam {
+        height: 500px;
+        background: #a3a598 !important;
+        align-content: center;
     }
 
     .group {
-        border: solid 2px #799dd3;
-        background-color: #21263b;
-        border-radius: 25px !important;
+        border: solid 1px #505757;
+        background-color: #ada9a9;
+        border-radius: 10px !important;
+        font: #000000;
+        align-content: center;
+        opacity: 1;
+    }
+
+    .mpHeader {
+        font-weight: bold;
     }

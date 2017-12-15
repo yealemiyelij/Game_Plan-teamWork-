@@ -15,6 +15,37 @@
 
 <body>
     <div class="container-fluid">
+        <div class="modal fade" id="newGroup" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Group</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="m-2" id="groupForm">
+                            <div class="form-group">
+                                <label>Group Name</label>
+                                <input type="text" class="form-control form-control-sm" id="newGroupName">
+                            </div>
+                            <div class="form-group">
+                                <label>Group Type</label>
+                                <input type="text" class="form-control form-control-sm" id="newGroupType">
+                            </div>
+                            <div class="form-group">
+                                <label>Add Friends</label>
+                                <input type="text" class="form-control form-control-sm" id="addFriends">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" id="createGroup">Create Group</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 px-4">
                 <a class="navbar-brand" href="#">Game Plan</a>
@@ -28,10 +59,10 @@
                             <a class="nav-link" href="mainpage.html">Home</a>
                         </li>
                         <li class="nav-item active">
-                            <a class="nav-link" href="group.html">Groups</a>
+                            <a class="nav-link" href="group.html">Teams</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="event.html">Events</a>
+                            <a class="nav-link" href="event.html">Play</a>
                         </li>
                     </ul>
                 </div>
@@ -45,7 +76,35 @@
                 </ul>
             </nav>
         </div>
-        <div class="row bg.dark">
+        <div class="row">
+            <div class="col-10 yourStuff" id="center">
+                <div class="card m-2 p-1 playTeam">
+                    <div class="card-header text-center text-dark font-weight-bold">
+                        <h2 class="mpHeader"> Teams </h2>
+                    </div>
+                    <div class="card-body">
+                        <ul id="newGroupRow">
+                            <!-- <div class="row p-1 m-3 group">
+                                <div class="col-4 groupName">
+                                    <h4></h4>
+                                </div>
+                                <div class="col-4 groupType">
+                                    <h6></h6>
+                                </div>
+                                <div class="col-4 delete">
+                                    <a></a>
+                                </div>
+                            </div> -->
+                        </ul>
+                        <!-- Button trigger modal -->
+                        <button type="button" class="btn btn-dark float-right" data-toggle="modal" data-target="#newGroup">
+                            Add Team
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row bg.dark footer">
             <div class="col-4">
             </div>
             <div class="col-4 text-muted">
@@ -53,6 +112,14 @@
             </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ"
+        crossorigin="anonymous"></script>
+    <script src="javascript/pageSpecific.js"></script>
 </body>
 
 </html>
