@@ -1,0 +1,84 @@
+    /***** ALL PAGES ******/
+
+    body {
+        background-image: url(../images/background.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        font-family: 'Dosis', sans-serif !important;
+    }
+
+    .navbar {
+        z-index: 3;
+    }
+
+    .footer {
+        background-color: #3f3f3f;
+        bottom: 0;
+    }
+    /****Login Page****/
+
+    .login {
+        opacity: .9;
+        background-image: url(../images/login.png) !important;
+        background-repeat: no-repeat;
+        background-size: cover;
+        position: absolute;
+        top: 25%;
+        left: 0;
+        z-index: 2;
+    }
+
+    #overlay {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        font-size: 50px;
+        color: white;
+        transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+    }
+    /****New User*****/
+
+    #newUserPage {
+        background-color: #ddcece;
+    }
+
+    #center {
+        float: none;
+        margin: 0 auto;
+    }
+
+    #newUserForm {
+        opacity: .95;
+    }
+    /*****Main Page*****/
+
+    .yourStuff {
+        float: none;
+        margin: 0 auto;
+        opacity: .95;
+        /* background: #a3a598 !important; */
+    }
+
+    .user {
+        background: #a3a598 !important;
+    }
+
+    .playTeam {
+        height: 500px;
+        background: #a3a598 !important;
+        align-content: center;
+    }
+
+    .group {
+        border: solid 1px #505757;
+        background-color: #ada9a9;
+        border-radius: 10px !important;
+        font: #000000;
+        align-content: center;
+        opacity: 1;
+    }
+
+    .mpHeader {
+        font-weight: bold;
+    }
