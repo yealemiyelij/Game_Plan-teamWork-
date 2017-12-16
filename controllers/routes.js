@@ -28,13 +28,15 @@ router.post("/api/auth", function (req, res) {
   }).then((user) => {
 
     if (!user) {
-      res.status(404).json({
-        message: 'User not found.'
+      return res.status(200).json({
+        message: 'User not found.',
+        success: false
       });
     }
 
     const payload = {
-      id: user.id
+      id: user.id,
+      username: user.userName
     };
 
     var token = jwt.sign(payload, "mySuperSecretSecureKey");
@@ -47,7 +49,9 @@ router.post("/api/auth", function (req, res) {
       secure: false // Doesn't need HTTPS
     });
 
-    res.status(200).json(user);
+    res.status(200).json({
+      success: true
+    });
 
   });
 
