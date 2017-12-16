@@ -15,10 +15,10 @@ var jwt = require("jsonwebtoken");
 // if error--> route to login;'
 
 //Authenticate API - login.onclick execute
-router.post("/api/auth", function(req,res) {
+router.post("/api/auth", function (req, res) {
   var userName = req.body.userName;
   var userPassword = req.body.password;
-  
+
 
   db.User.findOne({
     where: {
@@ -27,28 +27,27 @@ router.post("/api/auth", function(req,res) {
     }
   }).then((user) => {
 
-    if (user) {
-      
-        const payload = {
-            id: user.id
-        };
-
-        var token = jwt.sign(payload, "mySuperSecretSecureKey");
-  
-          // return the information including token as cookie
-        res.cookie("auth", token, {
-            expires: new Date(Date.now() + (86400 * 14 * 1000)), //2 weeks
-            maxAge: 86400 * 14 * 1000,
-            httpOnly: true,
-            secure: false // Doesn't need HTTPS
-        });
-
-      res.status(200).json(user);
-    }else{
+    if (!user) {
       res.status(404).json({
         message: 'User not found.'
       });
     }
+
+    const payload = {
+      id: user.id
+    };
+
+    var token = jwt.sign(payload, "mySuperSecretSecureKey");
+
+    // return the information including token as cookie
+    res.cookie("auth", token, {
+      expires: new Date(Date.now() + (86400 * 14 * 1000)), //2 weeks
+      maxAge: 86400 * 14 * 1000,
+      httpOnly: true,
+      secure: false // Doesn't need HTTPS
+    });
+
+    res.status(200).json(user);
 
   });
 
@@ -58,7 +57,7 @@ router.post("/api/auth", function(req,res) {
 
 //create user api
 router.post("/api/users", function (req, res) {
-  
+
   db.User.create({
     firstname: req.body.firstname,
     lastname: req.body.lastname,
@@ -70,10 +69,12 @@ router.post("/api/users", function (req, res) {
     image: req.body.image
   }).then((user) => {
 
-    res.json({ id: user.id });
+    res.json({
+      id: user.id
+    });
 
   })
-  
+
   /*
   user.create([
     "first_name", "last_name", "username", "birthdate", "email_address", "password", "primary_phone_number"
@@ -87,41 +88,41 @@ router.post("/api/users", function (req, res) {
 
 });
 
-router.get("/api/groups", function(req, res) { //authMiddleware
+router.get("/api/groups", function (req, res) { //authMiddleware
 
-    db.Group.findAll({
-      include: [{
-        model: db.UserGroup,
-        required: true,
-        where: {
-          userId: 1 //req.decoded.user.id
-        }
-      }]
-    }).then((groups) => {
+  db.Group.findAll({
+    include: [{
+      model: db.UserGroup,
+      required: true,
+      where: {
+        userId: 1 //req.decoded.user.id
+      }
+    }]
+  }).then((groups) => {
 
-      res.status(200).json(groups);
+    res.status(200).json(groups);
 
-    });
+  });
 
 });
 
-router.get("/api/events", function(req, res) { //authMiddleware
-  
-      db.Event.findAll({
-        // include: [{
-        //   model: db.UserGroup,
-        //   required: true,
-        //   where: {
-        //     userId: 1 //req.decoded.user.id
-        //   }
-        // }]
-      }).then((events) => {
-  
-        res.status(200).json(events);
-  
-      });
-  
+router.get("/api/events", function (req, res) { //authMiddleware
+
+  db.Event.findAll({
+    // include: [{
+    //   model: db.UserGroup,
+    //   required: true,
+    //   where: {
+    //     userId: 1 //req.decoded.user.id
+    //   }
+    // }]
+  }).then((events) => {
+
+    res.status(200).json(events);
+
   });
+
+});
 
 
 //create group api
@@ -135,7 +136,7 @@ router.post("/api/groups", function (req, res) {
 
     var usergroups = [];
 
-    for(var i = 0; i < req.body.friends.length; i++){
+    for (var i = 0; i < req.body.friends.length; i++) {
       usergroups.push({
         UserId: req.body.friends[i].id,
         GroupId: group.id
@@ -150,31 +151,31 @@ router.post("/api/groups", function (req, res) {
 
     });
 
-  }) 
+  })
 });
 
 //create event api
 router.post("/api/events", authMiddleware, function (req, res) {
   console.log("req.decoded.auth:  " + req.decoded.auth);
 
-    db.User.findById(req.decoded.id).then((user) => {
+  db.User.findById(req.decoded.id).then((user) => {
 
 
-        db.Event.create({
-            eventadmin: req.cookie.auth,
-            eventname: req.body.eventName,
-            eventgroup: req.body.eventGroup,
-            username: user.username,
-            eventdate: req.body.eventDate,
-            ongoingevent: false
-        }).then((event) => {
-            res.status(200).json({
-                message: "Successfully created group."
-            })
-        })
-
-
+    db.Event.create({
+      eventadmin: req.cookie.auth,
+      eventname: req.body.eventName,
+      eventgroup: req.body.eventGroup,
+      username: user.username,
+      eventdate: req.body.eventDate,
+      ongoingevent: false
+    }).then((event) => {
+      res.status(200).json({
+        message: "Successfully created group."
+      })
     })
+
+
+  })
 
 
 });
@@ -186,13 +187,13 @@ router.post("/api/events", authMiddleware, function (req, res) {
 //HTML Routes
 //default route
 router.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname,"./login.html"));
+  res.sendFile(path.join(__dirname, "./login.html"));
 });
 
 
 //main page route
 router.get("/mainPage", function (req, res) {
-  res.sendFile(path.join(__dirname,"./mainPage.html"));
+  res.sendFile(path.join(__dirname, "./mainPage.html"));
 });
 
 
@@ -205,12 +206,15 @@ function authMiddleware(req, res, next) {
   // decode token
   if (token) {
     // verifies secret and checks exp
-    jwt.verify(token, "mySuperSecretSecureKey", function(err, decoded) {      
+    jwt.verify(token, "mySuperSecretSecureKey", function (err, decoded) {
       if (err) {
-        return res.json({ success: false, message: 'Failed to authenticate token.' });    
+        return res.json({
+          success: false,
+          message: 'Failed to authenticate token.'
+        });
       } else {
         // if everything is good, save to request for use in other routes
-        req.decoded = decoded;    
+        req.decoded = decoded;
         next();
       }
     });
@@ -219,9 +223,9 @@ function authMiddleware(req, res, next) {
 
     // if there is no token
     // return an error
-    return res.status(403).send({ 
-        success: false, 
-        message: 'No token provided.' 
+    return res.status(403).send({
+      success: false,
+      message: 'No token provided.'
     });
 
   }
