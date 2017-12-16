@@ -160,17 +160,17 @@ router.post("/api/groups", function (req, res) {
 
 //create event api
 router.post("/api/events", authMiddleware, function (req, res) {
-  console.log("req.decoded.auth:  " + req.decoded.auth);
+  console.log("req.decoded.auth:  " + req.decoded.id);
 
   db.User.findById(req.decoded.id).then((user) => {
 
 
     db.Event.create({
-      eventadmin: req.cookie.auth,
-      eventname: req.body.eventName,
-      eventgroup: req.body.eventGroup,
+      eventadmin: user.id,
+      eventname: req.body.eventname,
+      eventgroup: req.body.eventgroup,
       username: user.username,
-      eventdate: req.body.eventDate,
+      eventdate: req.body.eventdate,
       ongoingevent: false
     }).then((event) => {
       res.status(200).json({
