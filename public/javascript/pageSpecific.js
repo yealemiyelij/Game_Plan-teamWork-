@@ -87,6 +87,7 @@ $("#createEvent").on("click", function (event) {
     $.ajax({
         method: "POST",
         url: "/api/events",
+        dataType: "json",
         data: {
             eventadmin: "jdoe",
             eventname: eventName,
