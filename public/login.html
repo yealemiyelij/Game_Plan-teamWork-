@@ -53,14 +53,14 @@
                         Login
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="loginForm" method="POST">
                             <div class="form-group">
                                 <label>Username</label>
-                                <input type="text" class="form-control" placeholder="Enter Username">
+                                <input id="userNameForm" type="text" class="form-control" name="userName" placeholder="Enter Username">
                             </div>
                             <div class="form-group">
                                 <label for="exampleInputPassword1">Password</label>
-                                <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                                <input type="password" class="form-control" id="userPasswordForm" name="password" placeholder="Password">
                             </div>
                             <button type="submit" class="btn btn-primary m-2" id="loginButton">Submit</button>
                             <a href="newuser.html">
@@ -103,5 +103,30 @@
     <script src="javascript/pageSpecific.js"></script>
 
 </body>
+<script type="text/javascript">
+    // calling the ajax to get the login pages
+
+    $("#loginForm").on("submit", function (event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "/api/auth",
+            method: "POST",
+            data: $(this).serialize()
+        }).done(function (data) {
+
+            console.log('login response', data);
+
+            var output = "Yoh have successfully logged in";
+
+            //window.location = '/home';
+
+        });
+
+    })
+
+
+    //return output
+</script>
 
 </html>
