@@ -111,36 +111,3 @@ $("#createEvent").on("click", function (event) {
         $("#eventForm")[0].reset();
     });
 });
-
-/*
-$("#loginButton").on("click", function (login) {
-    login.preventDefault();
-
-    userName = $("#userNameForm").val().trim();
-    passWord = $("#userPasswordForm").val().trim();
-
-
-    $.ajax({
-        method: "POST",
-        url: "/api/auth",
-        data: {
-            username: "jdoe",
-            password: passWord,
-        }
-    }).done(function (data) {
-
-        var newLogin = new Login(userName, password);
-        $("#eventRow").append(
-            '<div class="row m-2 no-gutters event">' +
-            '<div class="col-3 eventName">' + '<p>' + eventName + '<p>' + '</div>' +
-            '<div class="col-3 eventGroup">' + '<p>' + eventGroup + '</p>' + '</div>' +
-            '<div class="col-3 eventDate">' + '<small><p>' + eventDate + '</p></small>' + '</div>' +
-            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
-            '</div'
-        );
-
-        newFunction2();
-        $("#eventForm")[0].reset();
-    });
-});
-*/
