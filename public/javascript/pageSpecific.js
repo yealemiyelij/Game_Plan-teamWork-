@@ -33,9 +33,13 @@ $("#createGroup").on("click", function (event) {
         data: {
             name: name,
             type: type,
-            friends: [{ id: 5 }, { id: 1 }]
+            friends: [{
+                id: 5
+            }, {
+                id: 1
+            }]
         }
-    }).done(function(data) {
+    }).done(function (data) {
 
         var newGroup = new group(name, type, friends);
         $("#newGroupRow").append(
@@ -87,23 +91,56 @@ $("#createEvent").on("click", function (event) {
             eventadmin: "jdoe",
             eventname: eventName,
             eventgroup: eventGroup,
-            username: "jdoe",            
-            eventdate: eventDate,   
+            username: "jdoe",
+            eventdate: eventDate,
             ongoingevent: false
         }
-    }).done(function(data) {
+    }).done(function (data) {
 
-    var newEvent = new nEvent(eventName, eventGroup, eventDate);
-    $("#eventRow").append(
-        '<div class="row m-2 no-gutters event">' +
-        '<div class="col-3 eventName">' + '<p>' + eventName + '<p>' + '</div>' +
-        '<div class="col-3 eventGroup">' + '<p>' + eventGroup + '</p>' + '</div>' +
-        '<div class="col-3 eventDate">' + '<small><p>' + eventDate + '</p></small>' + '</div>' +
-        '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
-        '</div'
-    );
+        var newEvent = new nEvent(eventName, eventGroup, eventDate);
+        $("#eventRow").append(
+            '<div class="row m-2 no-gutters event">' +
+            '<div class="col-3 eventName">' + '<p>' + eventName + '<p>' + '</div>' +
+            '<div class="col-3 eventGroup">' + '<p>' + eventGroup + '</p>' + '</div>' +
+            '<div class="col-3 eventDate">' + '<small><p>' + eventDate + '</p></small>' + '</div>' +
+            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+            '</div'
+        );
 
-    newFunction2();
-    $("#eventForm")[0].reset();
+        newFunction2();
+        $("#eventForm")[0].reset();
     });
 });
+
+/*
+$("#loginButton").on("click", function (login) {
+    login.preventDefault();
+
+    userName = $("#userNameForm").val().trim();
+    passWord = $("#userPasswordForm").val().trim();
+
+
+    $.ajax({
+        method: "POST",
+        url: "/api/auth",
+        data: {
+            username: "jdoe",
+            password: passWord,
+        }
+    }).done(function (data) {
+
+        var newLogin = new Login(userName, password);
+        $("#eventRow").append(
+            '<div class="row m-2 no-gutters event">' +
+            '<div class="col-3 eventName">' + '<p>' + eventName + '<p>' + '</div>' +
+            '<div class="col-3 eventGroup">' + '<p>' + eventGroup + '</p>' + '</div>' +
+            '<div class="col-3 eventDate">' + '<small><p>' + eventDate + '</p></small>' + '</div>' +
+            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+            '</div'
+        );
+
+        newFunction2();
+        $("#eventForm")[0].reset();
+    });
+});
+*/
