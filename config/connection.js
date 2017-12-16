@@ -9,17 +9,17 @@ if (process.env.JAWSDB_URL) {
     // Else function is for creating mysql connection 
 } else {
     connection = mysql.createConnection({
-        port: process.env.PORT || 8080,
+        port: process.env.PORT || 8889,
         host: 'localhost',
         user: 'root',
-        password: '??????',
+        password: 'root',
         database: 'Game_plan_db',
     });
 };
 
-connection.connect(function (error) {
+connection.connect(function (err) {
     if (err) {
-        console.error('error connecting: ' + error.stack);
+        console.error('error connecting: ' + err.stack);
         return;
     }
     console.log('The Game_plan_db is connected as id ' + connection.threadId);

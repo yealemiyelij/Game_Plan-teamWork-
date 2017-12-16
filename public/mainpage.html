@@ -26,7 +26,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="m-2">
+                        <form class="m-2" id="eventForm">
                             <div class="form-group">
                                 <label>Event Name</label>
                                 <input type="text" class="form-control form-control-sm" id="newEventName">
@@ -206,5 +206,46 @@
         crossorigin="anonymous"></script>
     <script src="javascript/pageSpecific.js"></script>
 </body>
+
+<script type="text/javascript">
+    $.ajax({
+    url: "/api/groups",
+    method: "GET"
+}).done(function(groups) {
+    //console.log("groups are: " + groups.name);
+    
+    for(i = 0; i < groups.length; i++){
+        //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
+        $("#newGroupRow").append(
+            '<div class="row m-2 group">' +
+            '<div class="col-5 groupName">' + '<p>' + groups[i].name + '</p>' + '</div>' +
+            '<div class="col-5 groupType">' + '<p>' + groups[i].type + '</p>' + '</div>' +
+            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+            '</div>'
+        );
+    };
+});
+
+$.ajax({
+    url: "/api/events",
+    method: "GET"
+}).done(function(events) {
+    //console.log("groups are: " + groups.name);
+    
+    for(i = 0; i < events.length; i++){
+        //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
+        $("#eventRow").append(
+            '   <div class="row m-2 no-gutters event">' +
+                '<div class="col-3 eventName">' + '<p>' + events[i].eventname + '<p>' + '</div>' +
+                '<div class="col-3 eventGroup">' + '<p>' + events[i].eventgroup + '</p>' + '</div>' +
+                '<div class="col-3 eventDate">' + '<small><p>' + events[i].eventdate + '</p></small>' + '</div>' +
+                '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+                '</div>'
+        );
+    };
+});
+
+
+</script>
 
 </html>

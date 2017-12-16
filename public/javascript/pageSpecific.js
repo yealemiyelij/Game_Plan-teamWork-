@@ -17,6 +17,9 @@ function newFunction() {
     console.log(name);
 }
 
+
+
+
 $("#createGroup").on("click", function (event) {
     event.preventDefault();
 
@@ -50,6 +53,8 @@ $("#createGroup").on("click", function (event) {
 });
 
 
+
+
 ///////Function to add new Event///////
 class nEvent {
     constructor(eventName, eventGroup, eventDate) {
@@ -70,13 +75,27 @@ function newFunction2() {
 
 $("#createEvent").on("click", function (event) {
     event.preventDefault();
+
     eventName = $("#newEventName").val().trim();
     eventGroup = $("#newEventGroup").val().trim();
     eventDate = $("#newEventDate").val().trim();
 
+    $.ajax({
+        method: "POST",
+        url: "/api/events",
+        data: {
+            eventadmin: "jdoe",
+            eventname: eventName,
+            eventgroup: eventGroup,
+            username: "jdoe",            
+            eventdate: eventDate,   
+            ongoingevent: false
+        }
+    }).done(function(data) {
+
     var newEvent = new nEvent(eventName, eventGroup, eventDate);
     $("#eventRow").append(
-        '<div class="row m-2 no-gutters group">' +
+        '<div class="row m-2 no-gutters event">' +
         '<div class="col-3 eventName">' + '<p>' + eventName + '<p>' + '</div>' +
         '<div class="col-3 eventGroup">' + '<p>' + eventGroup + '</p>' + '</div>' +
         '<div class="col-3 eventDate">' + '<small><p>' + eventDate + '</p></small>' + '</div>' +
@@ -85,5 +104,6 @@ $("#createEvent").on("click", function (event) {
     );
 
     newFunction2();
-    $("#newEvent")[0].reset();
+    $("#eventForm")[0].reset();
+    });
 });
