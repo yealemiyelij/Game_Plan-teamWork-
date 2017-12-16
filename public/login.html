@@ -118,7 +118,9 @@
             if (data.success) {
                 window.location.href = '/mainpage.html';
             } else {
-                alert(data.message);
+                alert(data.message //+ "window.location.href ='/login.html'");
+                );
+                window.location.href = '/login.html';
             }
 
 
