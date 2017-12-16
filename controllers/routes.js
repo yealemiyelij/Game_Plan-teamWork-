@@ -92,7 +92,7 @@ router.post("/api/users", function (req, res) {
 
 });
 
-router.get("/api/groups", function (req, res) { //authMiddleware
+router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
 
   db.Group.findAll({
     include: [{
@@ -110,7 +110,7 @@ router.get("/api/groups", function (req, res) { //authMiddleware
 
 });
 
-router.get("/api/events", function (req, res) { //authMiddleware
+router.get("/api/events", authMiddleware, function (req, res) { //authMiddleware
 
   db.Event.findAll({
     // include: [{
@@ -191,15 +191,34 @@ router.post("/api/events", authMiddleware, function (req, res) {
 //HTML Routes
 //default route
 router.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, "./login.html"));
+  res.sendFile(path.join(__dirname, "../public/login.html"));
 });
 
 
 //main page route
-router.get("/mainPage", function (req, res) {
-  res.sendFile(path.join(__dirname, "./mainPage.html"));
+router.get("/mainpage", authMiddleware, function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/mainpage.html"));
 });
 
+//group page route
+router.get("/group", authMiddleware, function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/group.html"));
+});
+
+//event page route
+router.get("/event", authMiddleware, function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/event.html"));
+});
+
+//alt - login page route
+router.get("/login", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/login.html"));
+});
+
+//newuser page route
+router.get("/newuser", function (req, res) {
+  res.sendFile(path.join(__dirname, "../public/newuser.html"));
+});
 
 
 // verify token API
@@ -227,10 +246,13 @@ function authMiddleware(req, res, next) {
 
     // if there is no token
     // return an error
-    return res.status(403).send({
-      success: false,
-      message: 'No token provided.'
-    });
+    
+    res.redirect('/login.html');
+
+    //return res.status(403).send({
+      //success: false,
+      //message: 'No token provided.'
+    //}), res.sendFile(path.join(__dirname, "../public/login.html"));
 
   }
 }
