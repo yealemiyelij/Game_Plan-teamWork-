@@ -14,6 +14,7 @@
 
 <body>
     <div class="container-fluid">
+        <!--******* Add Event Modal********* -->
         <div class="modal fade" id="newEvent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -24,7 +25,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form class="m-2">
+                        <form class="m-2" id="eventForm">
                             <div class="form-group">
                                 <label>Event Name</label>
                                 <input type="text" class="form-control form-control-sm" id="newEventName">
@@ -35,7 +36,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Event Date</label>
-                                <input type="date" class="form-control form-control-sm" id="newEventDate">
+                                <input type="date" class="form-control form-control-sm" id="newEventDate" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}">
                             </div>
                         </form>
                     </div>
@@ -45,9 +46,43 @@
                 </div>
             </div>
         </div>
+        <!--********** Add Event Itinerary Modal********* -->
+        <div class="modal fade" id="newEventItem" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">New Event Item</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form class="m-2" id="newEventItForm">
+                            <div class="form-group">
+                                <label>Place</label>
+                                <input type="text" class="form-control form-control-sm" id="place">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Time</label>
+                                <input type="time" class="form-control form-control-sm" id="start">
+                            </div>
+                            <div class="form-group">
+                                <label>End Time</label>
+                                <input type="time" class="form-control form-control-sm" id="end">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary" data-dismiss="modal" id="createEventItem">Create Event Item</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark w-100 px-4">
-                <a class="navbar-brand" href="#">Game Plan</a>
+                <a class="navbar-brand">
+                    <img src="images/logo.png" width="100px">
+                </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
