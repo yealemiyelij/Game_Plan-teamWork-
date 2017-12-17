@@ -1,5 +1,92 @@
 ////Main Page JS//////
 
+////Fucntion to add new user////
+class user {
+    constructor(firstname, lastname, username, newpassword, passwordcheck, email, birthday, phonenumber, exampleFormControlFile1) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.newpassword = newpassword;
+        this.passwordcheck = passwordcheck;
+        this.email = email;
+        this.birthday = birthday;
+        this.phonenumber = phonenumber;
+        this.exampleFormControlFile1 = exampleFormControlFile1;
+    }
+}
+
+var firstname = "";
+var lastname = "";
+var username = "";
+var newpassword = "";
+var passwordcheck = "";
+var email = "";
+var birthday = "";
+var phonenumber = "";
+var exampleFormControlFile1 = "";
+
+
+$("#createUser").on("click", function (event) {
+    event.preventDefault();
+    $("#createError").html('');
+    
+    function validateForm() {
+        var isValid = true;
+        $('.form-control').each(function() {
+          if ( $(this).val() === '' ){
+            isValid = false;
+          }
+        });
+      return isValid;
+    };
+    if(validateForm()){
+        firstname = $("#firstName").val().trim();
+        lastname = $("#lastName").val().trim();
+        username = $("#userName").val().trim();
+        newpassword = $("#newPassword").val().trim();
+        passwordcheck = $("#passwordCheck").val().trim();
+        email = $("#email").val().trim();
+        birthday = $("#birthday").val().trim();
+        phonenumber = $("#phoneNumber").val().trim();
+        exampleFormControlFile1 = $("#exampleFormControlFile1").val().trim();
+    
+        if(newpassword != passwordcheck) {
+            $("#createError").html("Password and Confirm Password do not match.");
+        } else{
+            $.ajax({
+                method: "POST",
+                url: "/api/users",
+                data: {
+                    firstname: firstname,
+                    lastname: lastname,
+                    username: username,
+                    newpassword: newpassword,
+                    passwordcheck: passwordcheck,
+                    email: email,
+                    birthday: birthday,
+                    phonenumber: phonenumber,
+                    exampleFormControlFile1: exampleFormControlFile1
+                }
+            }).done(function (data) {
+                //window.location.href = '/';
+               
+                if(!data.success){
+                $("#createError").html(data.message);
+                } else{
+                    $("#createError").html(data.message);
+                    $("#userForm")[0].reset();
+                    window.location.href = '/';
+                };
+            });
+        };   
+    } else{
+        $("#createError").html("Please complete all fields of form.");
+    };
+
+});
+
+
+
 ///Function to grab value from new group form///
 class group {
     constructor(name, type, friends) {
@@ -16,9 +103,6 @@ var friends = "";
 function newFunction() {
     console.log(name);
 }
-
-
-
 
 $("#createGroup").on("click", function (event) {
     event.preventDefault();
@@ -56,9 +140,6 @@ $("#createGroup").on("click", function (event) {
 
 });
 
-
-
-
 ///////Function to add new Event///////
 class nEvent {
     constructor(eventName, eventGroup, eventDate) {
@@ -72,10 +153,6 @@ var eventName = "";
 var eventGroup = "";
 var eventDate = "";
 
-
-function newFunction2() {
-    console.log(eventName);
-}
 
 $("#createEvent").on("click", function (event) {
     event.preventDefault();
@@ -108,7 +185,66 @@ $("#createEvent").on("click", function (event) {
             '</div'
         );
 
-        newFunction2();
         $("#eventForm")[0].reset();
     });
 });
+
+/////////Function to add Itinerary//////////
+
+class itinerary {
+    constructor(place, start, end) {
+        this.place = place;
+        this.start = start;
+        this.end = end;
+    }
+}
+
+// function createItinerary() {
+//     this.innerHTML = '<div class="row">' +
+//         '<div class="col-4">' + place + '</div>' +
+//         '<div class="col-4">' + start + '</div>' +
+//         '<div class="col-4">' + end + '</div>' +
+//         '</div>';
+//     this.className += eventName.replace(/\s/g, '');
+// }
+
+$("#createEventItem").on("click", function (event) {
+    event.preventDefault();
+    place = $("#place").val().trim();
+    start = $("#start").val().trim();
+    end = $("#end").val().trim();
+
+    var newItinerary = new itinerary(place, start, end);
+
+    // $("#itRow").append(
+    //     createItinerary()
+    // )
+
+    $("#itRow").append(
+        '<div class="row">' +
+        '<div class="col-4">' + place + '</div>' +
+        '<div class="col-4">' + start + '</div>' +
+        '<div class="col-4">' + end + '</div>' +
+        '</div>'
+    );
+
+
+    // var div = document.createElement('div')
+    // div.className = eventName.replace(/\s/g, '');
+    // div.innerHTML = createItinerary();
+    // div.onClick = div.innerHTML;
+
+
+
+    console.log(eventName)
+
+    $("#newEventItForm")[0].reset();
+})
+
+
+///////// Delete Created User Input Button//////////
+
+$("#deleteEvent").on("click", function () {
+    $(".eventName.replace(/\s/g, '')").remove();
+
+})

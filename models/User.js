@@ -9,8 +9,8 @@ module.exports = function(sequelize, DataTypes) {
         birthdate: DataTypes.STRING,
         email: DataTypes.STRING,
         password: DataTypes.STRING,
-        phone: DataTypes.STRING
-        // image: DataTypes.STRING
+        phone: DataTypes.STRING,
+        image: DataTypes.BLOB
     });
     
     User.associate = function(models) {

@@ -32,7 +32,7 @@ router.post("/api/auth", function (req, res) {
         message: 'User not found.',
         success: false
       });
-    }
+    };
 
     const payload = {
       id: user.id,
@@ -62,34 +62,35 @@ router.post("/api/auth", function (req, res) {
 //create user api
 router.post("/api/users", function (req, res) {
 
-  db.User.create({
-    firstname: req.body.firstname,
-    lastname: req.body.lastname,
-    username: req.body.username,
-    birthdate: req.body.birthdate,
-    email: req.body.email,
-    password: req.body.password,
-    phone: req.body.phone,
-    image: req.body.image
+  db.User.findOne({
+    where: {
+      username: req.body.username
+    }
   }).then((user) => {
-
-    res.json({
-      id: user.id
-    });
-
-  })
-
-  /*
-  user.create([
-    "first_name", "last_name", "username", "birthdate", "email_address", "password", "primary_phone_number"
-  ], [
-    req.body.firstName, req.body.lastName, req.body.userName, req.body.birthdate, req.body.emailAddress, req.body.phoneNumber
-  ], function(result) {
-    // Send back the ID of the new quote
-    res.json({ id: result.insertId });
-  });
-  */
-
+    if(!user) {
+      db.User.create({
+        firstname: req.body.firstname,
+        lastname: req.body.lastname,
+        username: req.body.username,
+        birthdate: req.body.birthday,
+        email: req.body.email,
+        password: req.body.newpassword,
+        phone: req.body.phonenumber,
+        image: req.body.exampleFormControlFile1
+      }).then(() => {
+        res.status(200).json({
+          message: 'Successfully created user.',
+          success: true
+        });;
+      });
+      
+    }else{
+      res.json({
+        message: "Username already exists.",
+        success: false
+      })
+    };
+});
 });
 
 router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
