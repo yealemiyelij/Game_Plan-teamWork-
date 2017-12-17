@@ -27,10 +27,10 @@
                 <!-- <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav">
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="mainpage.html">Home</a>
+                            <a class="nav-link disabled" href="mainpage">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link disabled" href="group.html">Teams</a>
+                            <a class="nav-link disabled" href="group">Teams</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link disabled" href="">Play</a>
@@ -40,8 +40,8 @@
                 <div class="collapse navbar-collapse" id="navbarNav"></div>
                 <ul class="nav navbar-nav navbar-right">
                     <li class="nav-item active">
-                        <a class="nav-link" href="login.html">Login</a>
-                        <a href="newuser.html">
+                        <a class="nav-link" href="login">Login</a>
+                        <a href="newuser">
                             <small id="newUser" class="form-text">New User/Create Login</small>
                         </a>
                     </li>
@@ -55,7 +55,7 @@
                         Login
                     </div>
                     <div class="card-body">
-                        <form>
+                        <form id="loginForm">
                             <div class="form-group">
                                 <label>Username</label>
                                 <input type="text" class="form-control" id="enterUsername" placeholder="Enter Username">
@@ -65,7 +65,7 @@
                                 <input type="password" class="form-control" id="enterPassword" placeholder="Password">
                             </div>
                             <button type="submit" class="btn btn-primary m-2" id="loginButton">Submit</button>
-                            <a href="newuser.html">
+                            <a href="newuser">
                                 <small id="newUser" class="form-text">New User/Create Login</small>
                             </a>
                         </form>
@@ -106,5 +106,30 @@
     <script src="javascript/pageSpecific.js"></script>
 
 </body>
+<script type="text/javascript">
+    // calling the ajax to get the login pages
+
+    $("#loginForm").on("submit", function (event) {
+        event.preventDefault();
+
+        $.ajax({
+            url: "/api/auth",
+            method: "POST",
+            data: $(this).serialize()
+        }).done(function (data) {
+
+            if (data.success) {
+                window.location.href = '/mainpage.html';
+            } else {
+                alert(data.message //+ "window.location.href ='/login.html'");
+                );
+                window.location.href = '/login.html';
+            }
+
+
+        });
+
+    })
+</script>
 
 </html>

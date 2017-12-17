@@ -1,5 +1,92 @@
 ////Main Page JS//////
 
+////Fucntion to add new user////
+class user {
+    constructor(firstname, lastname, username, newpassword, passwordcheck, email, birthday, phonenumber, exampleFormControlFile1) {
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username;
+        this.newpassword = newpassword;
+        this.passwordcheck = passwordcheck;
+        this.email = email;
+        this.birthday = birthday;
+        this.phonenumber = phonenumber;
+        this.exampleFormControlFile1 = exampleFormControlFile1;
+    }
+}
+
+var firstname = "";
+var lastname = "";
+var username = "";
+var newpassword = "";
+var passwordcheck = "";
+var email = "";
+var birthday = "";
+var phonenumber = "";
+var exampleFormControlFile1 = "";
+
+
+$("#createUser").on("click", function (event) {
+    event.preventDefault();
+    $("#createError").html('');
+    
+    function validateForm() {
+        var isValid = true;
+        $('.form-control').each(function() {
+          if ( $(this).val() === '' ){
+            isValid = false;
+          }
+        });
+      return isValid;
+    };
+    if(validateForm()){
+        firstname = $("#firstName").val().trim();
+        lastname = $("#lastName").val().trim();
+        username = $("#userName").val().trim();
+        newpassword = $("#newPassword").val().trim();
+        passwordcheck = $("#passwordCheck").val().trim();
+        email = $("#email").val().trim();
+        birthday = $("#birthday").val().trim();
+        phonenumber = $("#phoneNumber").val().trim();
+        exampleFormControlFile1 = $("#exampleFormControlFile1").val().trim();
+    
+        if(newpassword != passwordcheck) {
+            $("#createError").html("Password and Confirm Password do not match.");
+        } else{
+            $.ajax({
+                method: "POST",
+                url: "/api/users",
+                data: {
+                    firstname: firstname,
+                    lastname: lastname,
+                    username: username,
+                    newpassword: newpassword,
+                    passwordcheck: passwordcheck,
+                    email: email,
+                    birthday: birthday,
+                    phonenumber: phonenumber,
+                    exampleFormControlFile1: exampleFormControlFile1
+                }
+            }).done(function (data) {
+                //window.location.href = '/';
+               
+                if(!data.success){
+                $("#createError").html(data.message);
+                } else{
+                    $("#createError").html(data.message);
+                    $("#userForm")[0].reset();
+                    window.location.href = '/';
+                };
+            });
+        };   
+    } else{
+        $("#createError").html("Please complete all fields of form.");
+    };
+
+});
+
+
+
 ///Function to grab value from new group form///
 class group {
     constructor(name, type, friends) {
@@ -19,29 +106,39 @@ function newFunction() {
 
 $("#createGroup").on("click", function (event) {
     event.preventDefault();
+
     name = $("#newGroupName").val().trim();
     type = $("#newGroupType").val().trim();
     friends = $("#addFriends").val().trim();
-    var newGroup = new group(name, type, friends);
-    $("#newGroupRow").append(
-        '<div class="row m-2 group" data-toggle="collapse" aria-expanded="false" href=".friendsList">' +
 
-        '<div class="col-12">' +
-        '<div class="row">' +
-        '<div class="col-5 groupName">' + '<p>' + name + '</p>' + '</div>' +
-        '<div class="col-5 groupType">' + '<p>' + type + '</p>' + '</div>' +
-        '<div class=col-2>' + '<button type="button" class="btn btn-link delete">' + '<a><small> Delete <small></a>' + '</button>' + '</div>' +
-        '</div>' +
+    $.ajax({
+        method: "POST",
+        url: "/api/groups",
+        data: {
+            name: name,
+            type: type,
+            friends: [{
+                id: 5
+            }, {
+                id: 1
+            }]
+        }
+    }).done(function (data) {
 
-        '<div class="collapse col-10-offset-1 mb-3 px-2 friendsList">' + '<div class="row">' + '<div class="col-12">' + friends + '</div>' + '</div>' + '</div>' +
-        '</div>' +
+        var newGroup = new group(name, type, friends);
+        $("#newGroupRow").append(
+            '<div class="row m-2 group">' +
+            '<div class="col-5 groupName">' + '<p>' + name + '</p>' + '</div>' +
+            '<div class="col-5 groupType">' + '<p>' + type + '</p>' + '</div>' +
+            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+            '</div>'
+        );
+        newFunction();
+        $("#groupForm")[0].reset();
 
-        '</div>'
-    );
-    newFunction();
-    $("#groupForm")[0].reset();
+    });
+
 });
-
 
 ///////Function to add new Event///////
 class nEvent {
@@ -58,38 +155,39 @@ var eventDate = "";
 
 
 $("#createEvent").on("click", function (event) {
-
-
     event.preventDefault();
+
     eventName = $("#newEventName").val().trim();
     eventGroup = $("#newEventGroup").val().trim();
     eventDate = $("#newEventDate").val().trim();
 
-    var date = eventDate;
-    var newDate = date.toString('dd-MM-yy');
-    console.log(newDate);
+    $.ajax({
+        method: "POST",
+        url: "/api/events",
+        dataType: "json",
+        data: {
+            eventadmin: "jdoe",
+            eventname: eventName,
+            eventgroup: eventGroup,
+            username: "jdoe",
+            eventdate: eventDate,
+            ongoingevent: false
+        }
+    }).done(function (data) {
 
-    var newEvent = new nEvent(eventName, eventGroup, eventDate);
-    $("#eventRow").append(
-        '<div class="row m-2 group' + newEvent + '">' + '<div class="col-12" data-toggle="collapse" aria-expanded="false" href=".itinerary">' +
+        var newEvent = new nEvent(eventName, eventGroup, eventDate);
+        $("#eventRow").append(
+            '<div class="row m-2 no-gutters event">' +
+            '<div class="col-3 eventName">' + '<p>' + eventName + '<p>' + '</div>' +
+            '<div class="col-3 eventGroup">' + '<p>' + eventGroup + '</p>' + '</div>' +
+            '<div class="col-3 eventDate">' + '<small><p>' + eventDate + '</p></small>' + '</div>' +
+            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+            '</div'
+        );
 
-        '<div class="row">' +
-        '<div class="col-3">' + eventName + '</div>' +
-        '<div class="col-3 eventGroup">' + eventGroup + '</div>' +
-        '<div class="col-3 eventDate">' + '<small>' + newDate + '</small>' + '</div>' +
-        '<button type="button" class="btn btn-link" id="deleteEvent">' + '<a><small> Delete </small></a>' + '</button>' +
-        '<button type="button" class="btn btn-link ' + newEvent + '" data-toggle="modal" data-target="#newEventItem">' + '<a><small> Add Event Item </small></a>' + '</button>' +
-        '</div>' +
-
-        '<div class="row collapse itinerary">' + '<div class="col-10-offset-1 mb-3 px-2">' + '<ul id="itRow" class=" ' + newEvent + '">' + '</ul>' + '</div>' + '</div>' + '</div>' +
-
-        '</div>' + '</div>'
-    );
-
-    console.log(newEvent);
-
-    $("#eventForm")[0].reset();
-})
+        $("#eventForm")[0].reset();
+    });
+});
 
 /////////Function to add Itinerary//////////
 
