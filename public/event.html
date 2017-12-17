@@ -32,6 +32,9 @@
                             </div>
                             <div class="form-group">
                                 <label>Event Group</label>
+                                <select class="form-control" id="eventGroupDropdown">
+                                    <option>1</option>
+                                </select>
                                 <input type="text" class="form-control form-control-sm" id="newEventGroup">
                             </div>
                             <div class="form-group">
@@ -155,5 +158,27 @@
         crossorigin="anonymous"></script>
     <script src="javascript/pageSpecific.js"></script>
 </body>
+<script>
+$.ajax({
+    url: "/api/events",
+    method: "GET"
+}).done(function(events) {
+    //console.log("groups are: " + groups.name);
+    
+    for(i = 0; i < events.length; i++){
+        //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
+        $("#eventRow").append(
+            '   <div class="row m-2 no-gutters event">' +
+                '<div class="col-3 eventName">' + '<p>' + events[i].eventname + '<p>' + '</div>' +
+                '<div class="col-3 eventGroup">' + '<p>' + events[i].eventgroup + '</p>' + '</div>' +
+                '<div class="col-3 eventDate">' + '<small><p>' + events[i].eventdate + '</p></small>' + '</div>' +
+                '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+                '</div>'
+        );
+    };
+});
+
+
+</script>
 
 </html>
