@@ -17,11 +17,13 @@
 
     .footer {
         background-color: #3f3f3f;
-        position: absolute;
+        position: relative;
+        bottom: 0;
+        /* position: absolute;
         right: 0;
         bottom: 0;
         left: 0;
-        padding: 1rem;
+        padding: 1rem; */
     }
     /****Login Page****/
 
@@ -99,7 +101,7 @@
         border-radius: 10px !important;
     }
 
-    #itRow {
+    .itRow {
         background-color: #ffffff;
         font: #000000;
         font-size: 20px;

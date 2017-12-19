@@ -17,7 +17,7 @@
 
     .footer {
         background-color: #3f3f3f;
-        position: absolute;
+        /* position: absolute; */
         right: 0;
         bottom: 0;
         left: 0;
@@ -99,7 +99,7 @@
         border-radius: 10px !important;
     }
 
-    #itRow {
+    .itRow {
         background-color: #ffffff;
         font: #000000;
         font-size: 20px;

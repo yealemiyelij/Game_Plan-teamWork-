@@ -14,21 +14,21 @@
 </head>
 
 <script>
-    $(document).ready(function(){
+    $(document).ready(function () {
         $.ajax({
-        url: "/api/groups",
-        method: "GET"
-        }).done(function(groups) {
-        //console.log("groups are: " + groups.name);
-        
-            for(i = 0; i < groups.length; i++){
+            url: "/api/groups",
+            method: "GET"
+        }).done(function (groups) {
+            //console.log("groups are: " + groups.name);
+
+            for (i = 0; i < groups.length; i++) {
                 //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
                 var eventOption = $("<option></option>").text(groups[i].name);
-                
+
                 $("#newEventGroup").append(eventOption);
             };
         });
-        
+
     });
 </script>
 
@@ -214,13 +214,13 @@
                 </div>
             </div>
         </div>
-        <div class="row  bg-gradient-dark text-white footer">
+        <!-- <div class="row  bg-gradient-dark text-white footer">
             <div class="col-4">
             </div>
             <div class="col-4 text-muted">
                 <small>Copyright © 2017 Game Plan</small>
             </div>
-        </div>
+        </div> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
@@ -232,60 +232,61 @@
     <script src="javascript/pageSpecific.js"></script>
 </body>
 <script type="text/javascript">
+    $.ajax({
+        url: "/api/userinfo",
+        method: "GET"
+    }).done(function (user) {
+        //var objurl = window.URL.createObjectURL(new Blob([user.image]));
+        //var img = new Image();
+        //img.src = objurl;
+        //img.onload = function() {
+        // do something with your image
 
-$.ajax({
-    url: "/api/userinfo",
-    method: "GET"
-}).done(function(user) {
-    //var objurl = window.URL.createObjectURL(new Blob([user.image]));
-    //var img = new Image();
-    //img.src = objurl;
-    //img.onload = function() {
-  // do something with your image
+        $("#userName").text(user.firstname);
+        $("#userImage").attr({
+            "src": user.image
+        });
 
-    $("#userName").text(user.firstname);
-    $("#userImage").attr({
-        "src" : user.image
     });
-    
-});
 
-$.ajax({
-    url: "/api/groups",
-    method: "GET"
-}).done(function(groups) {
-    
-    for(i = 0; i < groups.length; i++){
-        //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
-        $("#newGroupRow").append(
-            '<div class="row m-2 group">' +
-            '<div class="col-5 groupName">' + '<p>' + groups[i].name + '</p>' + '</div>' +
-            '<div class="col-5 groupType">' + '<p>' + groups[i].type + '</p>' + '</div>' +
-            '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
-            '</div>'
-        );
-    };
-});
+    $.ajax({
+        url: "/api/groups",
+        method: "GET"
+    }).done(function (groups) {
 
-$.ajax({
-    url: "/api/events",
-    method: "GET"
-}).done(function(events) {
-    //console.log("groups are: " + groups.name);
-    
-    for(i = 0; i < events.length; i++){
-        //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
-        $("#eventRow").append(
-            '   <div class="row m-2 no-gutters event">' +
+        for (i = 0; i < groups.length; i++) {
+            //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
+            $("#newGroupRow").append(
+                '<div class="row m-2 group">' +
+                '<div class="col-5 groupName">' + '<p>' + groups[i].name + '</p>' + '</div>' +
+                '<div class="col-5 groupType">' + '<p>' + groups[i].type + '</p>' + '</div>' +
+                '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' +
+                '</button>' +
+                '</div>'
+            );
+        };
+    });
+
+    $.ajax({
+        url: "/api/events",
+        method: "GET"
+    }).done(function (events) {
+        //console.log("groups are: " + groups.name);
+
+        for (i = 0; i < events.length; i++) {
+            //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
+            $("#eventRow").append(
+                '   <div class="row m-2 no-gutters event">' +
                 '<div class="col-3 eventName">' + '<p>' + events[i].eventname + '<p>' + '</div>' +
                 '<div class="col-3 eventGroup">' + '<p>' + events[i].eventgroup + '</p>' + '</div>' +
-                '<div class="col-3 eventDate">' + '<small><p>' + events[i].eventdate + '</p></small>' + '</div>' +
-                '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' + '</button>' +
+                '<div class="col-3 eventDate">' + '<small><p>' + events[i].eventdate + '</p></small>' +
+                '</div>' +
+                '<button type="button" class="btn btn-link">' + '<a><small> Delete <small></a>' +
+                '</button>' +
                 '</div>'
-        );
-    };
-});
-
-
+            );
+        };
+    });
 </script>
+
 </html>
