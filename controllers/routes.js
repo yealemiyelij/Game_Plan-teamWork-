@@ -9,6 +9,7 @@ var app = express();
 
 var db = require("../models");
 var jwt = require("jsonwebtoken");
+var Sequelize = require("sequelize");
 //var cookie = require('cookie');
 
 //'api to check username and password to database, if username exists --> check password to value, if password matches --> grant token;
@@ -106,6 +107,7 @@ router.get("/api/userinfo", authMiddleware, function (req, res) { //authMiddlewa
       //   }
       // }]
       where: {
+        
         username: req.decoded.username
       }
     }).then((user) => {
@@ -128,7 +130,10 @@ console.log(req.decoded.username);
     //   }
     // }]
     where: {
-      friends: req.decoded.username
+      [Sequelize.Op.or]: [{friends: req.decoded.username}, {admin: req.decoded.username}]
+      //friends: req.decoded.username,
+      //admin: req.decoded.username
+
     }
   }).then((groups) => {
 
@@ -138,37 +143,34 @@ console.log(req.decoded.username);
 
 });
 
-router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
-console.log(req.decoded.username);
-  db.Group.findAll({
-    // include: [{
-    //   model: db.UserGroup,
-    //   required: true,
-    //   where: {
-    //     userId: req.decoded.id //req.decoded.user.id
-    //   }
-    // }]
-    where: {
-      friends: req.decoded.username
-    }
-  }).then((groups) => {
+// router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
+// //console.log(req.decoded.username);
+//   db.Group.findAll({
+//     // include: [{
+//     //   model: db.UserGroup,
+//     //   required: true,
+//     //   where: {
+//     //     userId: req.decoded.id //req.decoded.user.id
+//     //   }
+//     // }]
+//     where: {
+//       friends: req.decoded.username
+//     }
+//   }).then((groups) => {
 
-    res.status(200).json(groups);
+//     res.status(200).json(groups);
 
-  });
+//   });
 
-});
+// });
 
 router.get("/api/events", authMiddleware, function (req, res) { //authMiddleware
 
   db.Event.findAll({
-    // include: [{
-    //   model: db.UserGroup,
-    //   required: true,
-    //   where: {
-    //     userId: 1 //req.decoded.user.id
-    //   }
-    // }]
+    where: {
+      [Sequelize.Op.or]: [{players: req.decoded.username}, {eventadmin: req.decoded.username}]
+            //players: req.decoded.username
+          }
   }).then((events) => {
 
     res.status(200).json(events);
@@ -179,13 +181,14 @@ router.get("/api/events", authMiddleware, function (req, res) { //authMiddleware
 
 
 //create group api
-router.post("/api/groups", function (req, res) {
+router.post("/api/groups", authMiddleware, function (req, res) {
 
   //Use req.decoded.userid
   db.Group.create({
     name: req.body.name,
     type: req.body.type,
-    friends: req.body.friends
+    friends: req.body.friends,
+    admin: req.decoded.username
   }).then((group) => {
 
     var usergroups = [];
@@ -212,16 +215,29 @@ router.post("/api/groups", function (req, res) {
 router.post("/api/events", authMiddleware, function (req, res) {
   console.log("req.decoded.auth:  " + req.decoded.id);
 
-  db.User.findById(req.decoded.id).then((user) => {
+  db.Group.findOne({
+    // include: [{
+    //   model: db.UserGroup,
+    //   required: true,
+    //   where: {
+    //     userId: req.decoded.id //req.decoded.user.id
+    //   }
+    // }]
+    where: {
+      
+      name: req.body.eventgroup
+    }
+  }).then((group) => {
 
 
     db.Event.create({
-      eventadmin: user.id,
+      eventadmin: req.decoded.username,
       eventname: req.body.eventname,
       eventgroup: req.body.eventgroup,
-      username: user.username,
+      username: req.decoded.username,
       eventdate: req.body.eventdate,
-      ongoingevent: false
+      ongoingevent: false,
+      players: group.friends
     }).then((event) => {
       res.status(200).json({
         message: "Successfully created group."

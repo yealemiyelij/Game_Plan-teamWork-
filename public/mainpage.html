@@ -237,7 +237,7 @@ $.ajax({
     url: "/api/userinfo",
     method: "GET"
 }).done(function(user) {
-    var objurl = window.URL.createObjectURL(new Blob([user.image]));
+    //var objurl = window.URL.createObjectURL(new Blob([user.image]));
     //var img = new Image();
     //img.src = objurl;
     //img.onload = function() {
@@ -245,7 +245,7 @@ $.ajax({
 
     $("#userName").text(user.firstname);
     $("#userImage").attr({
-        "src" : objurl
+        "src" : user.image
     });
     
 });

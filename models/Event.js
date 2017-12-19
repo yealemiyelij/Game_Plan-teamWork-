@@ -6,7 +6,8 @@ module.exports = function (sequelize, DataTypes) {
         eventgroup: DataTypes.STRING,
         username: DataTypes.STRING,
         eventdate: DataTypes.STRING,
-        ongoingevent: DataTypes.BOOLEAN
+        ongoingevent: DataTypes.BOOLEAN,
+        players: DataTypes.STRING
     });
     return Event;
 };

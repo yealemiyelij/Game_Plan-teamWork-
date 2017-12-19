@@ -48,7 +48,7 @@ $("#createUser").on("click", function (event) {
         email = $("#email").val().trim();
         birthday = $("#birthday").val().trim();
         phonenumber = $("#phoneNumber").val().trim();
-        exampleFormControlFile1 = $("#exampleFormControlFile1").val().trim();
+        exampleFormControlFile1 = $("#profilePic").val().trim();
     
         if(newpassword != passwordcheck) {
             $("#createError").html("Password and Confirm Password do not match.");

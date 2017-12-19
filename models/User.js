@@ -10,7 +10,7 @@ module.exports = function(sequelize, DataTypes) {
         email: DataTypes.STRING,
         password: DataTypes.STRING,
         phone: DataTypes.STRING,
-        image: DataTypes.BLOB
+        image: DataTypes.STRING
     });
     
     User.associate = function(models) {
