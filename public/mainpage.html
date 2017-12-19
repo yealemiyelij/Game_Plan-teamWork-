@@ -13,6 +13,26 @@
 
 </head>
 
+<script>
+    $(document).ready(function(){
+        $.ajax({
+        url: "/api/groups",
+        method: "GET"
+        }).done(function(groups) {
+        //console.log("groups are: " + groups.name);
+        
+            for(i = 0; i < groups.length; i++){
+                //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);
+                var eventOption = $("<option></option>").text(groups[i].name);
+                
+                $("#newEventGroup").append(eventOption);
+            };
+        });
+        
+    });
+</script>
+
+
 <body id="mainPage">
     <div class="container-fluid">
         <!---========== Modal New Event============= -->
@@ -34,7 +54,7 @@
                             <div class="form-group">
                                 <label>Event Group</label>
                                 <select class="form-control" id="newEventGroup">
-                                    <option>1</option>
+                                    <option></option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -119,12 +139,12 @@
             <div class="col-2 m-1 h-75 user">
                 <div class="row">
                     <div class="col-12 text-center">
-                        <h4>Your Name</h4>
+                        <h4 id="userName">Your Name</h4>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12">
-                        <img src="images/userImageDefault.jpg" alt="User Image" class="img-thumbnail mb-2 p-2">
+                        <img src="images/userImageDefault.jpg" class="img-thumbnail mb-2 p-2" id="userImage">
                     </div>
                 </div>
             </div>
@@ -203,7 +223,7 @@
         </div>
     </div>
 
-
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh"
         crossorigin="anonymous"></script>
@@ -213,12 +233,27 @@
 </body>
 <script type="text/javascript">
 
+$.ajax({
+    url: "/api/userinfo",
+    method: "GET"
+}).done(function(user) {
+    var objurl = window.URL.createObjectURL(new Blob([user.image]));
+    //var img = new Image();
+    //img.src = objurl;
+    //img.onload = function() {
+  // do something with your image
+
+    $("#userName").text(user.firstname);
+    $("#userImage").attr({
+        "src" : objurl
+    });
+    
+});
 
 $.ajax({
     url: "/api/groups",
     method: "GET"
 }).done(function(groups) {
-    //console.log("groups are: " + groups.name);
     
     for(i = 0; i < groups.length; i++){
         //var newGroup = new group(groups[i].name, groups[i].type, groups[i].friends);

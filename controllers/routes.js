@@ -36,7 +36,7 @@ router.post("/api/auth", function (req, res) {
 
     const payload = {
       id: user.id,
-      username: user.userName
+      username: user.username
     };
 
     var token = jwt.sign(payload, "mySuperSecretSecureKey");
@@ -93,16 +93,64 @@ router.post("/api/users", function (req, res) {
 });
 });
 
-router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
 
-  db.Group.findAll({
-    include: [{
-      model: db.UserGroup,
-      required: true,
+
+//// GET user info personalized display
+router.get("/api/userinfo", authMiddleware, function (req, res) { //authMiddleware
+    db.User.findOne({
+      // include: [{
+      //   model: db.UserGroup,
+      //   required: true,
+      //   where: {
+      //     userId: req.decoded.id //req.decoded.user.id
+      //   }
+      // }]
       where: {
-        userId: 1 //req.decoded.user.id
+        username: req.decoded.username
       }
-    }]
+    }).then((user) => {
+  
+      res.status(200).json(user);
+  
+    });
+  
+  });
+
+//GET and list groups relevant to the user
+router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
+console.log(req.decoded.username);
+  db.Group.findAll({
+    // include: [{
+    //   model: db.UserGroup,
+    //   required: true,
+    //   where: {
+    //     userId: req.decoded.id //req.decoded.user.id
+    //   }
+    // }]
+    where: {
+      friends: req.decoded.username
+    }
+  }).then((groups) => {
+
+    res.status(200).json(groups);
+
+  });
+
+});
+
+router.get("/api/groups", authMiddleware, function (req, res) { //authMiddleware
+console.log(req.decoded.username);
+  db.Group.findAll({
+    // include: [{
+    //   model: db.UserGroup,
+    //   required: true,
+    //   where: {
+    //     userId: req.decoded.id //req.decoded.user.id
+    //   }
+    // }]
+    where: {
+      friends: req.decoded.username
+    }
   }).then((groups) => {
 
     res.status(200).json(groups);
@@ -136,7 +184,8 @@ router.post("/api/groups", function (req, res) {
   //Use req.decoded.userid
   db.Group.create({
     name: req.body.name,
-    type: req.body.type
+    type: req.body.type,
+    friends: req.body.friends
   }).then((group) => {
 
     var usergroups = [];
@@ -248,7 +297,7 @@ function authMiddleware(req, res, next) {
     // if there is no token
     // return an error
     
-    res.redirect('/login.html');
+    res.redirect('/login');
 
     //return res.status(403).send({
       //success: false,

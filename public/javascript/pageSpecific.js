@@ -87,7 +87,7 @@ $("#createUser").on("click", function (event) {
 
 
 
-///Function to grab value from new group form///
+///Function to grab value from new group form & store in db///
 class group {
     constructor(name, type, friends) {
         this.name = name;
@@ -117,11 +117,11 @@ $("#createGroup").on("click", function (event) {
         data: {
             name: name,
             type: type,
-            friends: [{
-                id: 5
-            }, {
-                id: 1
-            }]
+            friends: friends//[{
+            //     id: 5
+            // }, {
+            //     id: 1
+            // }]
         }
     }).done(function (data) {
 
